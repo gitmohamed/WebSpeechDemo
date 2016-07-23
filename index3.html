@@ -1,0 +1,214 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hold 'Q' to begin speech recognition</title>
+  <link href="https://fonts.googleapis.com/css?family=Baloo|Scope+One" rel="stylesheet">
+  <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+  <body>
+    <!-- <i>Change background by saying: 'Change background to PINK'</i><br> -->
+    <!-- <br> -->
+
+    <nav>
+      Say: "Show me" +<small style="color:#777"> ANYTHING YOU WANT TO SEE</small>
+    </nav>
+    <main id="app">
+      <span id="speech"></span>
+      <span id="interim"></span>
+    </main>
+    <div id="ballOuter"></div>
+    <div id="ball"></div>
+  </body>
+  <script>
+    window.focus();
+    function upgrade() {
+      alert('Please upgrade to Google Chrome for best possible experience.');
+    }
+    window.onload = function() {
+      if (!(window.webkitSpeechRecognition) && !(window.speechRecognition)) {
+        upgrade();
+      } else {
+
+        var speech = new webkitSpeechRecognition() || speechRecognition();
+        speech.lang = 'en-US';
+        speech.continuous = true;
+        speech.interimResults = true;
+
+        var recognizing,
+            final_transcript,
+            interim_transcript,
+            transcription = document.getElementById('speech'),
+            interim_span = document.getElementById('interim'),
+            ball = document.getElementById('ball'),
+            outerBall = document.getElementById('ballOuter'),
+            nav = document.querySelector('nav'),
+            ifr = document.getElementsByTagName('iframe');
+
+        interim_span.style.opacity = '0.5';
+
+        // function darkMode(mode) {
+        //   if (mode === 'on') {
+        //     if (ifr.length) {
+        //       ifr[0].style.backgroundColor = '45deg linear-gradient(rgb(17, 17, 17), #333)';
+        //     }
+        //   } else {
+        //     if (ifr.length) {
+        //       ifr[0].style.backgroundColor = 'white';
+        //       document.body.style.backgroundColor = 'whitesmoke';
+        //     }
+        //   }
+        // }
+
+        function reset() {
+          nav.style.left = '-410px'
+          ball.style.backgroundColor = 'whitesmoke';
+          ball.style.boxShadow = '0 0 10px rgba(0,0,0,0.2)';
+          outerBall.style.webkitTransform = 'scale(0)';
+          transcription.innerHTML = '';
+          interim_span.innerHTML = '';
+          recognizing = false;
+        }
+
+        function realStart() {
+          if (!recognizing) {
+            speech.start();
+            // darkMode('on');
+            nav.style.left = '25px'
+            if (ifr.length) {
+              ifr[0].style.width = '50%';
+              ifr[0].style.height = '50%';
+            }
+          }
+        }
+
+        function realStop() {
+          if (recognizing) {
+            speech.stop();
+            if (ifr.length) {
+              ifr[0].style.width = '88%';
+              ifr[0].style.height = '85%';
+            }
+            // darkMode('off');
+            reset();
+          }
+        }
+
+        document.onkeydown = function(e) {
+          if (e.key === "q") {
+            realStart();
+          }
+        };
+
+        document.onkeyup = function(e) {
+          if (e.key === "q") {
+            realStop();
+          }
+        };
+
+        ball.addEventListener('mousedown', function(e) {
+          e.preventDefault();
+          realStart();
+        });
+
+        ball.addEventListener('mouseup', function(e) {
+          e.preventDefault();
+          realStop();
+        });
+
+        speech.onstart = function() {
+            // When recognition begins
+            recognizing = true;
+            console.log("Speaking!");
+            ball.style.backgroundColor = 'crimson';
+            // ball.style.boxShadow = '0 0 15px rgba(0,0,0,0.2)';
+        };
+
+        speech.onresult = function(event) {
+          // When recognition produces result
+          interim_transcript = '';
+          final_transcript = '';
+
+          // main for loop for final and interim results
+          for (var i = event.resultIndex; i < event.results.length; ++i) {
+            if (event.results[i].isFinal) {
+              final_transcript += event.results[i][0].transcript;
+            } else {
+              interim_transcript += event.results[i][0].transcript;
+              outerBall.style.webkitTransform = 'scale(' + event.results[i][0].transcript.length/15 + ')';
+              setTimeout(function() {
+                outerBall.style.webkitTransform = 'scale(1)';
+              }, 300)
+            }
+          }
+
+          transcription.innerHTML = final_transcript;
+          interim_span.innerHTML = interim_transcript;
+
+          if ((/dark mode/g.test(final_transcript)) || (/dock mode/g.test(final_transcript))) {
+            if (/on/.test(final_transcript)) {
+              document.body.style.backgroundColor = '#111';
+              if (ifr.length) {
+                ifr[0].style.backgroundColor = '#111';
+                ifr[0].style.boxShadow = '0 0 10px #333';
+              }
+            } else if (/off/.test(final_transcript)) {
+              document.body.style.backgroundColor = 'whitesmoke';
+              if (ifr.length) {
+                ifr[0].style.backgroundColor = 'white';
+                ifr[0].style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.2)';
+              }
+            }
+          }
+
+          // get videos about anything
+          if ((/^show me /g.test(final_transcript))) {
+            var video = final_transcript.substring(8, final_transcript.length);
+            var getVids = function(video) {
+              var vids = document.body.getElementsByClassName('vid');
+              var url = '/getVid?vid=' + video;
+              var xhr = typeof XMLHttpRequest != 'undefined'
+                  		? new XMLHttpRequest()
+                  		: new ActiveXObject('Microsoft.XMLHTTP');
+              xhr.open('GET', url, true);
+              xhr.send(null);
+              xhr.onload = function () {
+                if (xhr.readyState === xhr.DONE) {
+                  if (xhr.status === 200) {
+                    var resp = xhr.responseText;
+                    if (resp) {
+                      if (vids.length < 1) {
+                        var vid = document.createElement('iframe');
+                        vid.className += 'vid';
+                        vid.setAttribute('src', 'https://www.youtube.com/embed/' + JSON.parse(resp));
+                        document.body.appendChild(vid);
+                      } else {
+                        var replace = document.getElementsByClassName('vid')[0];
+                        replace.setAttribute('src', 'https://www.youtube.com/embed/' + JSON.parse(resp));
+                      }
+                    } else {
+                      console.error('Unable to make video');
+                    }
+                  }
+                }
+              }
+            }
+            getVids(video);
+          }
+        };
+
+        speech.onerror = function(event) {
+            // When recognition fails or error occurs
+            console.error(event.error);
+        };
+
+        speech.onend = function() {
+            // When recognition ends
+            console.log("Hold 'Q' to begin speech.");
+            reset();
+        };
+
+      }
+    };
+  </script>
+</html>
