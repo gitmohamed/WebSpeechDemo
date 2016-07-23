@@ -2,7 +2,7 @@
 This is the repo for all of the code from this video on the web speech API: https://youtu.be/qyu0W-yCUAM
 
 # Instructions
-Make a config.js and include this code inside. Make sure you replace the API key with your own.
+Make a config.js and include the code below inside the project root. Make sure you replace the API key with your own.
 
 config.js
 ```javascript
@@ -11,7 +11,7 @@ config.js
   }
 ```
 
-To run the application run the following code:
+To run the application enter the following code:
 ***
 ```
 node app
