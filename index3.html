@@ -61,7 +61,7 @@
         // }
 
         function reset() {
-          nav.style.left = '-410px'
+          // nav.className += 'leftPop';
           ball.style.backgroundColor = 'whitesmoke';
           ball.style.boxShadow = '0 0 10px rgba(0,0,0,0.2)';
           outerBall.style.webkitTransform = 'scale(0)';
@@ -74,7 +74,7 @@
           if (!recognizing) {
             speech.start();
             // darkMode('on');
-            nav.style.left = '25px'
+            nav.className = 'leftPop';
             if (ifr.length) {
               ifr[0].style.width = '50%';
               ifr[0].style.height = '50%';
@@ -84,8 +84,10 @@
 
         function realStop() {
           if (recognizing) {
+            nav.className = '';
             speech.stop();
             if (ifr.length) {
+              nav.className = '';
               ifr[0].style.width = '88%';
               ifr[0].style.height = '85%';
             }
@@ -176,6 +178,7 @@
                 if (xhr.readyState === xhr.DONE) {
                   if (xhr.status === 200) {
                     var resp = xhr.responseText;
+                    console.log(resp);
                     if (resp) {
                       if (vids.length < 1) {
                         var vid = document.createElement('iframe');

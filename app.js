@@ -1,12 +1,12 @@
-var express = require('express');
-var path = require('path');
-var request = require('request');
-var bodyParser = require('body-parser');
-var YouTube = require('youtube-node');
-var yt = new YouTube();
-var config = require('./config');
-var ytApi = config.key;
-var app = express();
+const express = require('express');
+const path = require('path');
+const request = require('request');
+const bodyParser = require('body-parser');
+const YouTube = require('youtube-node');
+const yt = new YouTube();
+const config = require('./config');
+const ytApi = config.key;
+const app = express();
 
 app.set('port', (process.env.PORT || 3333));
 app.use(bodyParser.json());
@@ -24,10 +24,17 @@ app.get('/2', function(req, res) {
 
 var callYt = function(q ,callback) {
   yt.search(q, 10, function(error, result) {
-    if (error) throw error
-    yt.addParam('q', q);
-    var link = result.items[0].id.videoId;
-    callback(link);
+    if (error) console.error(error);
+    // yt.addParam('q', q);
+    let vids = [] // Array of video ids to send to client
+    for (let id in result.items) {
+      if (result.items.hasOwnProperty(id)) {
+        if (result.items[id].id.kind === 'youtube#video') {
+          vids.push(result.items[id].id.videoId)
+        }
+      }
+    }
+    callback(vids[0]) // return the videos as callback
   });
 }
 
