@@ -1,8 +1,11 @@
 # WebSpeechDemo
-This is the repo for all of the code from this video on the web speech API: https://youtu.be/qyu0W-yCUAM
+This application will search YouTube for a video using the [Web Speech API](https://developers.google.com/web/updates/2013/01/Voice-Driven-Web-Apps-Introduction-to-the-Web-Speech-API?hl=en).
+***
+Here's a video demo: https://youtu.be/qyu0W-yCUAM
 
 # Instructions
-Make a config.js and include the code below inside the project root. Make sure you replace the API key with your own.
+Make a config.js and include the code below inside the project root. Make sure you replace the API key with your own. If you do not have a Youtube Data API key get it 
+[here](https://developers.google.com/youtube/registering_an_application).
 
 config.js
 ```javascript
@@ -14,5 +17,5 @@ config.js
 To run the application enter the following code:
 ***
 ```
-node app
+npm start
 ```
