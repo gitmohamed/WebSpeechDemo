@@ -1,7 +1,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Hold 'Q' to begin speech recognition</title>
+  <title>Hold 'Q' and speak to search YouTube</title>
   <link href="https://fonts.googleapis.com/css?family=Baloo|Scope+One" rel="stylesheet">
   <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <link rel="stylesheet" href="css/main.css">
@@ -13,11 +13,11 @@
     <nav>
       "Show me" +<small style="color:#777"> ANYTHING YOU WANT TO SEE</small>
     </nav>
+    <p class="instr">Hold 'Q' and speak to search YouTube</p>
     <main id="app">
       <span id="speech"></span>
       <span id="interim"></span>
     </main>
-    <div id="player"></div>
     <div id="ballOuter"></div>
     <div id="ball">
       <span>Q</span>
@@ -194,6 +194,7 @@
                         vid.setAttribute('controls', 0);
                         vid.setAttribute('src', 'https://www.youtube.com/embed/' + JSON.parse(resp) + '');
                         document.body.appendChild(vid);
+                        document.getElementsByClassName('instr')[0].style.opacity = '0';
                       } else {
                         var replace = document.getElementsByClassName('vid')[0];
                         replace.setAttribute('src', 'https://www.youtube.com/embed/' + JSON.parse(resp));
