@@ -1,0 +1,14 @@
+{
+  "name": "Search YouTube",
+  "description": "Ask YouTube to show you something.",
+  "keywords": [
+    "YouTube",
+    "webspeech",
+    "ux"
+  ],
+  "website": "searchyt.herokuapp.com",
+  "repository": "https://github.com/gitMohamed/WebSpeechDemo",
+  "logo": "dist/img/m-logo.png",
+  "success_url": "/3",
+  "image": "heroku/nodejs"
+}
