@@ -6,10 +6,8 @@
 ***
 `#localhost:3333/2`
 ***
-`#localhost:3333/3`
-######/1 & /2 are simple speech output views
-
 ##localhost:3333/3
+######/1 & /2 are simple speech output views
 This application will search YouTube for a video using the [Web Speech API](https://developers.google.com/web/updates/2013/01/Voice-Driven-Web-Apps-Introduction-to-the-Web-Speech-API?hl=en).
 ***
 Here's a video demo: https://youtu.be/qyu0W-yCUAM
@@ -26,7 +24,6 @@ config.js
 ```
 
 To run the application enter the following code:
-***
 ```
 npm start
 ```
