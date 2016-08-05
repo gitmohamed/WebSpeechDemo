@@ -2,9 +2,9 @@
 
 ##Routes are as follows:
 ***
-#`localhost:3333/1`
+###`localhost:3333/1`
 ***
-#`localhost:3333/2`
+###`localhost:3333/2`
 ***
 ##localhost:3333/3
 ######/1 & /2 are simple speech output views
