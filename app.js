@@ -26,8 +26,8 @@ var callYt = (q ,callback) => {
   yt.search(q, 10, (err, result) => {
     if (err) throw error
     // yt.addParam('q', q);
-    let vids = [] // Array of video ids to send to client
-    for (let id in result.items) {
+    var vids = [] // Array of video ids to send to client
+    for (var id in result.items) {
       if (result.items.hasOwnProperty(id)) {
         if (result.items[id].id.kind === 'youtube#video') {
           vids.push(result.items[id].id.videoId)
