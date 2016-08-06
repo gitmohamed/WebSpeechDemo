@@ -48,6 +48,7 @@
     -webkit-transition: background 200ms ease-in-out;
     text-align: center;
     line-height: 3.2em;
+    cursor: pointer;
   }
 
   #ballOuter {
