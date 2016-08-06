@@ -9,6 +9,6 @@
   "website": "searchyt.herokuapp.com",
   "repository": "https://github.com/gitMohamed/WebSpeechDemo",
   "logo": "dist/img/m-logo.png",
-  "success_url": "/3",
+  "success_url": "/",
   "image": "heroku/nodejs"
 }
