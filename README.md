@@ -25,5 +25,6 @@ config.js
 
 To run the application enter the following code:
 ```
+npm install
 npm start
 ```
