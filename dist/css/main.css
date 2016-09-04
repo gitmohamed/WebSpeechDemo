@@ -1,7 +1,7 @@
 
 
   body {
-    font-family: 'Baloo', monospace;
+    font-family: 'Montserrat', monospace;
     font-size: 32px;
     background: whitesmoke;
     color: #333;
@@ -85,17 +85,17 @@
     width: auto;
     display: block;
     position: fixed;
-    left: -310px;
-    top: 20px;
-    opacity: 1;
-    background: white;
+    left: 80px;
+    bottom: 0px;
+    z-index: -1;
+    opacity: 0.9;
+    background: transparent;
     padding: 20px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.2);
     border-radius: 2px;
     font-size: 22px;
-    -webkit-transition: left 280ms cubic-bezier(0.64, 0.37, 0.26, 1.25);
-    -o-transition: left 280ms cubic-bezier(0.64, 0.37, 0.26, 1.25);
-    transition: left 280ms cubic-bezier(0.64, 0.37, 0.26, 1.25);
+    -webkit-transition: opacity 280ms cubic-bezier(0.64, 0.37, 0.26, 1.25);
+    -o-transition: opacity 280ms cubic-bezier(0.64, 0.37, 0.26, 1.25);
+    transition: opacity 280ms cubic-bezier(0.64, 0.37, 0.26, 1.25);
   }
 
   .instr {
@@ -129,8 +129,8 @@
   }
 
   iframe {
-    width: 50%;
-    height: 50%;
+    width: 89.3vw;
+    height: 80vh;
     padding: 20px 40px;
     border: 0;
     border-radius: 2px;

@@ -2,7 +2,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Hold 'Q' and speak to search YouTube</title>
-  <link href="https://fonts.googleapis.com/css?family=Baloo|Scope+One" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Baloo|Montserrat" rel="stylesheet">
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <link rel="stylesheet" href="css/main.css">
 </head>
@@ -21,7 +21,12 @@
     </div>
   </body>
   <script>
-    window.focus();
+    document.activeElement.blur();
+    window.onblur = function() {
+      setTimeout(function() {
+        window.focus();
+      }, 20)
+    }
     function upgrade() {
       alert('Please upgrade to Google Chrome for best possible experience.');
     }
@@ -78,39 +83,50 @@
           if (!recognizing) {
             speech.start();
             // darkMode('on');
-            nav.className = 'leftPop';
+            nav.style.opacity = '0';
             if (ifr.length) {
-              ifr[0].style.width = '50%';
-              ifr[0].style.height = '50%';
+              // ifr[0].style.width = '50vw';
+              ifr[0].style.height = '70vh';
             }
           }
         }
 
         function realStop() {
           if (recognizing) {
-            nav.className = '';
+            nav.style.opacity = '1';
             speech.stop();
             if (ifr.length) {
-              nav.className = '';
-              ifr[0].style.width = '88%';
-              ifr[0].style.height = '85%';
+              // ifr[0].style.width = '89.3vw';
+              ifr[0].style.height = '80vh';
             }
             // darkMode('off');
             reset();
           }
         }
 
-        document.onkeydown = function(e) {
-          if (e.key === "q") {
-            realStart();
-          }
-        };
+        // document.onkeydown = function(e) {
+        //   if (e.key === "q") {
+        //     realStart();
+        //   }
+        // };
+        //
+        // document.onkeyup = function(e) {
+        //   if (e.key === "q") {
+        //     realStop();
+        //   }
+        // };
 
-        document.onkeyup = function(e) {
+        window.addEventListener('keyup', function(e) {
           if (e.key === "q") {
             realStop();
           }
-        };
+        });
+
+        window.addEventListener('keydown', function(e) {
+          if (e.key === "q") {
+            realStart();
+          }
+        });
 
         ball.addEventListener('mousedown', function(e) {
           e.preventDefault();
@@ -126,6 +142,8 @@
             // When recognition begins
             recognizing = true;
             console.log("Speaking!");
+            ball.style.width = '100px';
+            ball.style.height = '100px';
             ball.style.backgroundColor = 'crimson';
             ball.style.color = 'rgba(245, 245, 245, 0.9)';
             outerBall.style.transform = 'scale(1.3)';
