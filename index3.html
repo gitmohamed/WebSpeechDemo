@@ -84,6 +84,12 @@
             speech.start();
             // darkMode('on');
             nav.style.opacity = '0';
+            ball.style.width = '100px';
+            ball.style.height = '100px';
+            ball.style.backgroundColor = 'crimson';
+            ball.style.color = 'rgba(245, 245, 245, 0.9)';
+            outerBall.style.transform = 'scale(1.3) translateZ(0)';
+            // ball.style.boxShadow = '0 0 15px rgba(0,0,0,0.2)';
             if (ifr.length) {
               // ifr[0].style.width = '50vw';
               ifr[0].style.height = '70vh';
@@ -142,12 +148,6 @@
             // When recognition begins
             recognizing = true;
             console.log("Speaking!");
-            ball.style.width = '100px';
-            ball.style.height = '100px';
-            ball.style.backgroundColor = 'crimson';
-            ball.style.color = 'rgba(245, 245, 245, 0.9)';
-            outerBall.style.transform = 'scale(1.3)';
-            // ball.style.boxShadow = '0 0 15px rgba(0,0,0,0.2)';
         };
 
         speech.onresult = function(event) {
@@ -162,9 +162,9 @@
             } else {
               interim_transcript += event.results[i][0].transcript;
               outerBall.style.opacity = '0.2';
-              outerBall.style.webkitTransform = 'scale(' + (Math.min(event.results[i][0].transcript.length/50 + 1.3, 2.3)) + ')';
+              outerBall.style.webkitTransform = 'scale(' + (Math.min(event.results[i][0].transcript.length/50 + 1.3, 2.3)) + ') translateZ(0)';
               setTimeout(function() {
-                outerBall.style.webkitTransform = 'scale(1.3)';
+                outerBall.style.webkitTransform = 'scale(1.3) translateZ(0)';
               }, 230)
             }
           }

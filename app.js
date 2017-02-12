@@ -50,5 +50,5 @@ app.get('/3', (req, res) => {
 })
 
 app.listen(app.get('port'), () => {
-  console.log('Running app...')
+  console.log(`Running app on localhost:${app.get('port')}...`)
 })
